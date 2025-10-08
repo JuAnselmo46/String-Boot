@@ -52,10 +52,8 @@ public class CalculadoraController {
             default: erro ="Operação inválida";
         }
          Map<String, Object> resp = new HashMap<>();
-         resp.put("resultado:", resultado);
-         resp.put("erro:", erro);
+         resp.put("resultado", resultado);
+         resp.put("erro", erro);
          return resp;
     }
-}	
-	
-
+}
