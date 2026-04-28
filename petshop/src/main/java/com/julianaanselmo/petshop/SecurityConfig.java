@@ -14,17 +14,25 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable()) // Desabilita CSRF para facilitar testes via Postman
-            .cors(cors -> {})            // Ativa a configuração de CORS
+            // Desabilita CSRF (necessário para testes com Postman)
+            .csrf(csrf -> csrf.disable())
+
+            // Habilita CORS
+            .cors(cors -> {})
+
+            // Configuração de autorização
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/categorias/**").permitAll() // Libera acesso para categorias
-                .anyRequest().authenticated()                      // Exige login para o resto
+                // Libera acesso sem login
+                .requestMatchers("/api/categorias/**", "/api/produtos/**").permitAll()
+
+                // Qualquer outra rota precisa de autenticação
+                .anyRequest().authenticated()
             );
-        
+
         return http.build();
     }
 
-    // Bean para criptografia de senhas
+    // Criptografia de senha
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
