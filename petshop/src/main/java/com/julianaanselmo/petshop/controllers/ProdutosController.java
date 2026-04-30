@@ -1,6 +1,5 @@
 package com.julianaanselmo.petshop.controllers;
 
-	
 import java.util.List;
 import java.util.Optional;
 
@@ -14,45 +13,44 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.julianaanselmo.petshop.entities.Categoria;
-import com.julianaanselmo.petshop.services.CategoriaService;
+import com.julianaanselmo.petshop.entities.Produtos;
+import com.julianaanselmo.petshop.services.ProdutosService;
 
 
 @RestController
-@RequestMapping("/api/categorias")
-public class CategoriaController {
+@RequestMapping("/api/produtos")
+public class ProdutosController {
 	
 	@Autowired
-	private final CategoriaService service;
-
-    public CategoriaController(CategoriaService service) {
-        this.service = service;
-    }
-
-    @GetMapping
-    public List<Categoria> getAll() {
-        return service.findAll();
-    }
-
-    @GetMapping("/{id}")
-    public Optional<Categoria> getById(@PathVariable Integer id) {
-        return service.findById(id);
-    }
-
-    @PostMapping
-    public Categoria create(@RequestBody Categoria categoria) {
-        return service.save(categoria);
+	private final ProdutosService service;
+	
+	public ProdutosController(ProdutosService service) {
+		this.service = service;
+	}
+	
+	@GetMapping
+	public List<Produtos> getAll() {
+		return service.findAll();
+	}
+	
+	@GetMapping ("/{id}")
+	public Optional<Produtos> getById(@PathVariable Integer id) {
+		return service.findById(id);
+	}
+	
+	@PostMapping
+    public Produtos create(@RequestBody Produtos produtos) {
+        return service.save(produtos);
     }
 
     @PutMapping("/{id}")
-    public Categoria update(@PathVariable Integer id, @RequestBody Categoria categoria) {
-        categoria.setId(id);
-        return service.save(categoria);
+    public Produtos update(@PathVariable Integer id, @RequestBody Produtos produtos) {
+        produtos.setIdProdutos(id);
+        return service.save(produtos);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id) {
         service.deleteById(id);
     }
-
 }

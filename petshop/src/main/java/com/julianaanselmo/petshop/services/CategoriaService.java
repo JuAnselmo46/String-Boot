@@ -1,39 +1,38 @@
 package com.julianaanselmo.petshop.services;
 
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.julianaanselmo.petshop.entities.Categoria;
 import com.julianaanselmo.petshop.repositories.CategoriaRepository;
 
+
 @Service
 public class CategoriaService {
+	
+	private final  CategoriaRepository repository;
+	
+	public CategoriaService(CategoriaRepository repository) {
+		this.repository = repository;
+	}
+	
+	public List<Categoria> findAll() {
+		return repository.findAll();
+	}
+	
+	public Optional<Categoria> findById(Integer id) {
+		return repository.findById(id);
+	}
+	
+	public Categoria save(Categoria categoria) {
+		return repository.save(categoria);
+	}
+	
+	public void deleteById(Integer id) {
+		repository.deleteById(id);
+	}
 
-    @Autowired
-    private CategoriaRepository categoriaRepository;
 
-    // Método para buscar todas as categorias no banco
-    public List<Categoria> buscarTodas() {
-        return categoriaRepository.findAll();
-    }
-
-    // Método para salvar uma nova categoria
-    public Categoria salvar(Categoria categoria) {
-        return categoriaRepository.save(categoria); 
-    }
-        
-        public void deletar(Integer id) {
-            categoriaRepository.deleteById(id);
-        }
-            
-            public Categoria atualizar(Integer id, Categoria categoria) {
-                if (!categoriaRepository.existsById(id)) {
-                    throw new RuntimeException("Categoria não encontrada");
-                }
-                categoria.setId_categoria(id);
-                return categoriaRepository.save(categoria);
-            }
-        
-    }
+}
